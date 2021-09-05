@@ -26,10 +26,8 @@ public class TypeServiceImpl implements TypeService {
     public ResponseDTO add(GoodsType goodsType) {
         if (goodsTypeDao.insert(goodsType) == 1) {// 表示增加成功
             return ResponseDTO.ok("增加商品类型成功");
-
         } else {
             return ResponseDTO.fail("增加商品类型失败");
-
         }
     }
 
