@@ -22,7 +22,6 @@ public class ResponseDTO {
      */
     private Object data;
 
-
     /**
      * 返回的状态
      */
@@ -31,7 +30,6 @@ public class ResponseDTO {
      * 错误代码
      */
     private Integer errorCode;
-
     public ResponseDTO(String msg, Boolean res, Object data, Integer status, Integer errorCode) {
         this.msg = msg;
         this.res = res;

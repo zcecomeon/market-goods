@@ -16,7 +16,8 @@ public interface GoodsService {
      * @param goods
      * @return
      */
-    Map<String, Object> add(Goods goods);
+     Map<String, Object> add(Goods goods);
+    // public ResponseDTO add(Goods goods);
 
     /**
      * 根据商品类型寻找这个类型的所有商品

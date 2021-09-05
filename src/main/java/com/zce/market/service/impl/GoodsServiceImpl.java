@@ -10,6 +10,18 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.zce.market.dao.GoodsTypeDao;
+import com.zce.market.pojo.dto.ResponseDTO;
+import com.zce.market.pojo.entity.GoodsType;
+import com.zce.market.pojo.vo.GoodsTypeVO;
+import com.zce.market.service.TypeService;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Author 时光荒凉了来时路
@@ -27,12 +39,23 @@ public class GoodsServiceImpl implements GoodsService {
         if (i == 1) {//就表示增加商品成功
             resMap.put("res", true);// 增加成功；
             resMap.put("msg", "添加商品成功");// 添加商品成功
+            //ResponseDTO.ok("添加商品成功");
         } else {
             resMap.put("res", false);// 增加成功；
             resMap.put("msg", "添加商品失败");// 增加成功；
+            //ResponseDTO.fail("添加商品失败");
         }
         return resMap;
     }
+//    @Override
+//    public ResponseDTO add(Goods goods){
+//        if(goodsDao.insertSelective(goods)==1){
+//            return ResponseDTO.ok("添加商品成功");
+//        }else {
+//            return ResponseDTO.fail("添加商品失败");
+//        }
+//
+//    }
 
     @Override
     public ResponseDTO getGoodsByTypeId(Integer typeId) {
