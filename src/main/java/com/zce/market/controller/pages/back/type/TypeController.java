@@ -32,13 +32,9 @@ public class TypeController extends BaseController {
     String addPre(Model model){
         return "pages/back/type/type-addPre";
     }
-
     @RequestMapping("add")
     @ResponseBody
-
-
     ResponseDTO add(GoodsType goodsType){
         return typeService.add(goodsType);
     }
-
 }

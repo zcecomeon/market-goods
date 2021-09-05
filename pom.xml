@@ -38,20 +38,17 @@
             <artifactId>druid</artifactId>
             <version>1.2.6</version>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.26</version>
         </dependency>
-
         <!-- 阿里巴巴druid连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
             <version>1.2.6</version>
         </dependency>
-
         <!-- 开发辅助工具类，省略getter setter toString -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -59,26 +56,20 @@
             <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
             <version>2.5.4</version>
         </dependency>
-
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
             <version>2.5.4</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -90,11 +81,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-
-
     </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -104,13 +91,19 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.alipay.sdk/alipay-sdk-java -->
+
+            <dependency>
+                <groupId>com.github.wxpay</groupId>
+                <artifactId>wxpay-sdk</artifactId>
+                <version>0.0.3</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
-
     <build>
         <plugins>
-
-
             <!--后面需要添加的内容-->
             <plugin>
             <groupId>org.mybatis.generator</groupId>
@@ -124,9 +117,7 @@
                     </goals>
                 </execution>
             </executions>
-
         </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -154,9 +145,5 @@
                 </executions>
             </plugin>
         </plugins>
-
-
-
     </build>
-
 </project>
