@@ -60,8 +60,10 @@
 
         </div>
     </div>
-    <div style="cursor: pointer;width: 15%;text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;color:red;margin-left: 40px ">
-        我的购物车(10)
+    <div onclick="window.location='/pages/back/shopCar/showMyCar'" style="cursor: pointer;width: 15%;
+    text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;color:red;
+    margin-left: 40px ">
+        我的购物车(<span th:text="${session.carCount}">10</span>)
     </div>
 
     <!--下面的location对应前面的LoginController方法-->

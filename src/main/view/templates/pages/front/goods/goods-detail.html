@@ -10,7 +10,6 @@
 
 </style>
 <div>
-
     <div style="display: flex;align-items: center">
         <div style="width: 40%;text-align: right;margin-right: 100px">
             <img src="/images/index/logo.png"/>
@@ -24,7 +23,6 @@
                     搜索
                 </div>
             </div>
-
         </div>
         <div style="cursor: pointer;width: 20%;text-align: center;border: solid lightgray 1px ;background: rgb(245,245,245);padding: 6px;color: red;margin-left: 30px;">
             我的购物车(<span id="myCarCount" th:text="${session.carCount}">10</span>)
@@ -34,7 +32,6 @@
             登录
         </div>
     </div>
-
 </div>
 <!--// 头部-->
 <div class="layui-fluid">
@@ -66,7 +63,6 @@
                                  style="user-select: none;height: 30px;width: 30px;display: flex;align-items: center;justify-content: center;background: rgb(240,240,240);font-size: 20px;font-weight: bold;cursor: pointer">
                                 -
                             </div>
-
                         </div>
                         <div style="color: white;font-weight: bold;font-size: 18px;background: red;padding: 5px 10px;cursor: pointer;margin-left: 20px"
                              id="addShopCar">
@@ -75,16 +71,11 @@
                     </div>
                 </div>
             </div>
-
             <div th:utext="${goods.detail}" style="margin-left: 100px;padding:50px 100px">
-
             </div>
-
-
         </div>
     </div>
 </div>
-
 
 <script th:inline="javascript" type="text/javascript">
     $(function () {
@@ -119,7 +110,6 @@
                     }
                 });
             })
-
         });
     })
 </script>

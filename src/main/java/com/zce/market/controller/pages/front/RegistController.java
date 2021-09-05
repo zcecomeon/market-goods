@@ -20,10 +20,12 @@ import java.util.Map;
 @RequestMapping("/pages/front")
 public class RegistController {
     UserService userService;
+
     @RequestMapping("registPage")
     String registPage(){
-        return "pages/front/login/registPage";//这里才是返回页面
+        return "pages/front/login/registPage.html";//这里才是返回页面
     }
+
     @RequestMapping("regist")
     @ResponseBody
     String regist(User user){
