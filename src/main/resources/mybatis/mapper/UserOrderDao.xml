@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zce.market.dao.UserOrderDao">
+  <resultMap id="BaseResultMap" type="com.zce.market.pojo.entity.UserOrder">
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="usrer_id" jdbcType="INTEGER" property="usrerId" />
+    <result column="all_cost" jdbcType="DOUBLE" property="allCost" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="receiver_Phone" jdbcType="VARCHAR" property="receiverPhone" />
+    <result column="receiver_name" jdbcType="VARCHAR" property="receiverName" />
+    <result column="receive_address" jdbcType="VARCHAR" property="receiveAddress" />
+    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="actual_payment" jdbcType="DOUBLE" property="actualPayment" />
+    <result column="total_deduction" jdbcType="DOUBLE" property="totalDeduction" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, usrer_id, all_cost, create_time, pay_time, receiver_Phone, receiver_name, 
+    receive_address, pay_type, `status`, actual_payment, total_deduction
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_order
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="order_id" keyProperty="orderId" parameterType="com.zce.market.pojo.entity.UserOrder" useGeneratedKeys="true">
+    insert into user_order (usrer_id, all_cost, create_time, 
+      pay_time, receiver_Phone, receiver_name, 
+      receive_address, pay_type, `status`, 
+      actual_payment, total_deduction)
+    values (#{usrerId,jdbcType=INTEGER}, #{allCost,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{payTime,jdbcType=TIMESTAMP}, #{receiverPhone,jdbcType=VARCHAR}, #{receiverName,jdbcType=VARCHAR}, 
+      #{receiveAddress,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{actualPayment,jdbcType=DOUBLE}, #{totalDeduction,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" keyColumn="order_id" keyProperty="orderId" parameterType="com.zce.market.pojo.entity.UserOrder" useGeneratedKeys="true">
+    insert into user_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="usrerId != null">
+        usrer_id,
+      </if>
+      <if test="allCost != null">
+        all_cost,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="payTime != null">
+        pay_time,
+      </if>
+      <if test="receiverPhone != null">
+        receiver_Phone,
+      </if>
+      <if test="receiverName != null">
+        receiver_name,
+      </if>
+      <if test="receiveAddress != null">
+        receive_address,
+      </if>
+      <if test="payType != null">
+        pay_type,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="actualPayment != null">
+        actual_payment,
+      </if>
+      <if test="totalDeduction != null">
+        total_deduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="usrerId != null">
+        #{usrerId,jdbcType=INTEGER},
+      </if>
+      <if test="allCost != null">
+        #{allCost,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverPhone != null">
+        #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null">
+        #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="actualPayment != null">
+        #{actualPayment,jdbcType=DOUBLE},
+      </if>
+      <if test="totalDeduction != null">
+        #{totalDeduction,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zce.market.pojo.entity.UserOrder">
+    update user_order
+    <set>
+      <if test="usrerId != null">
+        usrer_id = #{usrerId,jdbcType=INTEGER},
+      </if>
+      <if test="allCost != null">
+        all_cost = #{allCost,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null">
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="receiverPhone != null">
+        receiver_Phone = #{receiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverName != null">
+        receiver_name = #{receiverName,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveAddress != null">
+        receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null">
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="actualPayment != null">
+        actual_payment = #{actualPayment,jdbcType=DOUBLE},
+      </if>
+      <if test="totalDeduction != null">
+        total_deduction = #{totalDeduction,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zce.market.pojo.entity.UserOrder">
+    update user_order
+    set usrer_id = #{usrerId,jdbcType=INTEGER},
+      all_cost = #{allCost,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      receiver_Phone = #{receiverPhone,jdbcType=VARCHAR},
+      receiver_name = #{receiverName,jdbcType=VARCHAR},
+      receive_address = #{receiveAddress,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=VARCHAR},
+      actual_payment = #{actualPayment,jdbcType=DOUBLE},
+      total_deduction = #{totalDeduction,jdbcType=DOUBLE}
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" th:href="@{/images/logo/logo.png}" type="image/x-icon"/><!--公司网址图标-->
+<div th:replace="plugins/js::js"></div>
+<script type="text/javascript" th:src="@{/lh/layer/layer.js}"></script>
+<body>
+
+<!--#fd0c2c到#fd2a47-->
+<div class="layui-row" style="position: absolute;left: 0;top: 0;bottom: 0;right: 0">
+    <div class="layui-col-xs12 layui-col-md6 layui-col-md-offset3 "
+         style="height: 100%;position: relative;">
+        <h3 style="text-align: center">确认订单</h3>
+
+        <form id="orderForm1" th:action="@{/pages/back/order/add}" method="post">
+
+            <input name="orderInfos" type="hidden" id="orderInfos" th:value="${orderInfoStr}"/>
+            <input name="receiveAddress" type="hidden" id="receiverAddress" th:if="${morenAddress!=null}"
+                   th:value="${morenAddress.detailAddress}"/>
+            <input type="hidden" name="isWx" id="isWx" value="false"/>
+            <input type="hidden" name="actualPayment" id="actuallyPaid" th:value="${actuallyPaid}"/>
+            <input type="hidden" name="totalDeduction" id="allRelief" th:value="${allRelief}"/>
+
+            <input type="hidden" name="arrivalTime" id="arrivalTime"
+                   th:value="${#dates.format(#dates.createNow(),'HH:mm')}+'-'+${#dates.format(#dates.create(#dates.year(#dates.createNow()),#dates.month(#dates.createNow()),#dates.day(#dates.createNow()),#dates.hour(#dates.createNow()),#dates.minute(#dates.createNow())+40),'HH:mm')}"/>
+            <input type="hidden" name="receiverName" id="receiverName" th:if="${morenAddress!=null}"
+                   th:value="${morenAddress.receiver}"/>
+            <input type="hidden" name="receiverPhone" id="receiverPhone" th:if="${morenAddress!=null}"
+                   th:value="${morenAddress.phone}"/>
+            <input type="hidden" name="allCost" id="allCost" th:value="${allCost}"/>
+
+            <div style="background: rgb(245,245,245);padding: 10px;">
+                <div style="background: white;padding: 10px;border-radius: 5px">
+                    <div>
+                        <div style="display: flex;justify-content: space-between;align-items: center"
+                             id="selectAddress">
+                            <div th:if="${morenAddress!=null}">
+                                <div style="display: flex;align-items: center">
+                                    <span style="background: #50d15a;color: white;padding: 1px 2px;border-radius:2px">公司</span>
+                                    <h2 style="font-weight: bold" id="addressTxt"
+                                        th:text="${morenAddress.detailAddress}">大西洋国际大厦12-1</h2>
+                                </div>
+                                <div style="color: gray">
+                                    <span id="receiverTxt" th:text="${morenAddress.receiver}">黎杭</span>
+                                    <span style="margin-left: 5px" id="receiverPhoneTxt"
+                                          th:text="${#strings.substring(morenAddress.phone,0,3)}+'****'+${#strings.substring(morenAddress.phone,7)}">182****0162</span>
+                                </div>
+                            </div>
+                            <div th:if="${morenAddress==null}">新建收货地址</div>
+                            <div style="color: lightgray"><i
+                                    class="layui-icon layui-icon-right"
+                                    style="font-size: 13px;margin-left: 5px;margin-top: 2px"></i></div>
+                        </div>
+                        <hr>
+                        <div style="display: flex;justify-content: space-between;align-items: center">
+                            <h3 style="font-weight: bold">送达时间</h3>
+                            <div style="color: #1E9FFF">立即送达 <span
+                                    th:text="${#dates.format(#dates.createNow(),'HH:mm')}">15:30</span>-<span
+                                    th:text="${#dates.format(#dates.create(#dates.year(#dates.createNow()),#dates.month(#dates.createNow()),#dates.day(#dates.createNow()),#dates.hour(#dates.createNow()),#dates.minute(#dates.createNow())+40),'HH:mm')}">16:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="background: white;padding: 10px;border-radius: 5px;margin-top: 10px">
+                    <div>
+                        <hr>
+                        <div>
+                            <div style="display: flex;align-items: center" th:each="c:${cars}">
+                                <div>
+                                    <img th:src="@{${c.goods.img}}" style="width: 40px;height: 40px"
+                                         onerror="this.src=errorImg"/>
+                                </div>
+                                <div style="margin-left: 10px;flex-grow: 1">
+                                    <div th:text="${c.goods.title}">福临门水晶米</div>
+                                    <div style="display: flex;justify-content: space-between;padding: 10px 0;font-weight: bold">
+                                        <div>¥<span th:text="${c.goods.price}">29.8</span> x <span th:text="${c.count}">1</span>
+                                        </div>
+                                        <div>¥<span th:text="${c.goods.price*c.count}">29.8</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align: center;background: rgb(240,240,240);border-radius: 5px">共<span
+                                    th:text="${#lists.size(cars)}">5</span>件
+                            </div>
+                            <div style="display: flex;justify-content: space-between;padding: 10px 0">
+                                <div>包装费</div>
+                                <div>¥0.5</div>
+                            </div>
+                            <div style="display: flex;justify-content: space-between;padding: 10px 0">
+                                <div>配送费</div>
+                                <div>¥5</div>
+                            </div>
+                            <div style="display: flex;justify-content: space-between;padding: 10px 0">
+                                <div>运费优惠</div>
+                                <div style="color: lightgray">暂无优惠</div>
+                            </div>
+                            <div style="display: flex;justify-content: space-between;padding: 10px 0">
+                                <div>红包</div>
+                                <div style="color: lightgray">暂无红包</div>
+                            </div>
+                            <div style="padding-right: 10px">
+                                <div>备注</div>
+                                <textarea name="note" style="height: 40px;width: 100%;padding: 5px;resize: none"
+                                          placeholder="您有和要求请填写"></textarea>
+                            </div>
+                            <hr>
+                            <div style="display: flex;align-items: center;justify-content: flex-end">
+                                <div>共节省<span th:text="${allRelief}">¥60.8</span></div>
+                                <div style="display: flex;margin-left: 20px;align-items: center">实付金额<h2
+                                        style="color: orangered;font-weight: bold;margin-left: 10px"
+                                        th:text="${actuallyPaid}">¥60.8</h2></div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+            <button class="layui-btn layui-btn-danger" type="button" id="commit"
+                    style="width: 100%;border-radius: 0;height: 40px;font-size: 1rem">提交订单
+            </button>
+
+            <!--            commit 千万不能叫submit-->
+        </form>
+
+
+    </div>
+</div>
+<script type="text/html" id="selectAddressDiv">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div th:each="a:${addressList}">
+                <div style="display: flex;align-items: center;padding: 10px 20px;border-bottom: solid lightgray 0.1px">
+                    <input type="radio" name="address" lay-filter="address"
+                           th:value="${a.detailAddress}+'|'+${a.receiver}+'|'+${a.phone}">
+                    <div>
+                        <div style="margin: 5px"><span th:text="${a.receiver}">黎杭</span> <span
+                                th:text="${#strings.substring(a.phone,0,3)}+'****'+${#strings.substring(a.phone,7)}">18223170162</span>
+                        </div>
+                        <div style="margin: 5px"><span
+                                style="background: #50d15a;color: white;padding: 1px 2px;border-radius:2px"
+                                th:text="${a.tag}">公司</span>
+                            <span th:text="${a.detailAddress}">重庆九龙坡区大西洋</span>
+                        </div>
+                    </div>
+                    <div style="padding-left: 50px;position: absolute;right: 20px;">
+                        <i class="layui-icon layui-icon-edit" style="font-size: 25px"></i>
+                    </div>
+                </div>
+            </div>
+            <div style="padding: 10px 0">
+                <button class="layui-btn layui-btn-normal" type="button" style="width: 100%">新建收货地址</button>
+            </div>
+        </div>
+
+
+    </form>
+
+</script>
+
+<script th:inline="javascript" type="text/javascript">
+    // 算购物车里边的钱
+
+    $(function () {
+        layui.use(['layer', 'form',], function () {
+            var layer = layui.layer;
+            var form = layui.form;
+
+            $("#selectAddress").click(function () {
+
+
+                var selectAddress = layer.open({
+                    type: 1,
+                    area: '80%',
+                    offset: '10px',
+                    title: '选择收货地址',
+                    content: $('#selectAddressDiv').html() //这里content是一个普通的String
+                });
+                form.render();
+
+                form.on('radio(address)', function (data) {
+                    let addressStr = data.value;
+
+                    $("#receiverAddress").val(addressStr.split('|')[0]);
+                    $("#receiverName").val(addressStr.split('|')[1]);
+                    $("#receiverPhone").val(addressStr.split('|')[2]);
+                    $("#addressTxt").text(addressStr.split('|')[0]);
+                    $("#receiverTxt").text(addressStr.split('|')[1]);
+                    $("#receiverPhone").text(addressStr.split('|')[2]);
+                    layer.close(selectAddress)
+                });
+
+            })
+            $("#commit").click(function () {
+                if (is_weixin()) {
+                    $("#isWx").val(true)
+                } else {
+                    $("#isWx").val(false)
+                }
+
+                // 提及哦订单之前，应该把订单详情也设置过来
+
+
+                $("#orderForm1").submit();
+
+            })
+
+
+        });
+
+    })
+
+</script>
+
+
+</body>
+
+</html>

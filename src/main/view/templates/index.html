@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>仿京东商城</title>
+</head>
+
+<style>
+    #goods_title1:hover{
+        color: red;
+        cursor: pointer;
+    }
+    #goods_title2:hover{
+        color: red;
+        cursor: pointer;
+    }
+    #goods_title3:hover{
+        color: red;
+        cursor: pointer;
+    }
+    #goods_title4:hover{
+        color: red;
+        cursor: pointer;
+    }
+    #goods_title5:hover{
+        color: red;
+        cursor: pointer;
+    }
+    #goods_title6:hover{
+        color: red;
+        cursor: pointer;
+    }
+
+    #loginBtn:hover{
+        color: red;
+        cursor: pointer;
+    }
+    #registBtn:hover{
+        color: red;
+        cursor: pointer;
+    }
+</style>
+
+<body>
+
+<!--头部-->
+<div style=" display: flex;align-items: center">
+    <div style="width: 35%;height: 87px">
+            <img src="/images/index/jd2.jpg">
+    </div>
+    <div style="width: 35%;">
+
+        <div style="display: flex;border: solid red 2px;">
+            <div style="width:75%">
+                <input type="text" style="height:50px;border:none;width:100%">
+            </div>
+            <div style="color:white;background: red;padding: 5px 20px;width:25%;text-align: center;font-size: 30px">
+                搜索
+            </div>
+
+        </div>
+    </div>
+    <div style="cursor: pointer;width: 15%;text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;color:red;margin-left: 40px ">
+        我的购物车(10)
+    </div>
+
+    <!--下面的location对应前面的LoginController方法-->
+    <div onclick="window.location='/pages/front/loginPage'"  id="loginBtn" style="cursor: pointer;width: 80px;text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;margin-left: 40px ">
+        登录
+    </div>
+
+    <!--下面是跳转到控制器的register-->
+    <div onclick="window.location='/pages/front/registPage'"  id="registBtn" style="cursor: pointer;width: 80px;text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;margin-left: 40px ">
+        注册
+    </div>
+</div>
+
+<div style="display: flex">
+    <div style="width:20%;border:solid red">
+        <div style="display: flex;align-items: center"th:each="x:${#numbers.sequence(1,6)}">
+            <!--上面的功能后面能动态显示内容-->
+            <div style="text-align: center;width: 30%">电子产品</div>
+            <div style="display: flex;flex-wrap: wrap;width: 70%;">
+                <div style="margin:5px">手机</div>
+                <div style="margin:5px">电脑</div>
+                <div style="margin:5px">电子手表</div>
+                <div style="margin:5px">笔记本电脑</div>
+            </div>
+        </div>
+    </div>
+
+    <div style="width:80%;">
+        <div style="border:solid red;display: flex;padding:20px 10px">
+            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+                <div id="goods_title1">
+                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+                </div>
+                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+            </div>
+
+            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+                <div id="goods_title2">
+                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+                </div>
+                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+            </div>
+
+            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+                <div id="goods_title3">
+                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+                </div>
+                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+            </div>
+        </div>
+        <div style="border:solid red;display: flex;padding:20px 10px">
+            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+                <div id="goods_title4">
+                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+                </div>
+                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+            </div>
+
+            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+                <div id="goods_title5">
+                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+                </div>
+                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+            </div>
+
+            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+                <div id="goods_title6">
+                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+                </div>
+                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

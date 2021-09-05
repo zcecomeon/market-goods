@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" th:href="@{/images/logo/logo.png}" type="image/x-icon"/><!--公司网址图标-->
+<div th:replace="plugins/js::js"></div>
+<!--二维码生成插件-->
+<script type="text/javascript" th:src="@{/jquery/jquery.qrcode.js}"></script>
+<script type="text/javascript" th:src="@{/jquery/utf.js}"></script>
+<!--二维码生成插件-->
+<script type="text/javascript" th:src="@{/lh/layer/layer.js}"></script>
+<body>
+<!--#fd0c2c到#fd2a47-->
+<div class="layui-row" style="position: absolute;left: 0;top: 0;bottom: 0;right: 0">
+    <div class="layui-col-xs12 layui-col-md6 layui-col-md-offset3 "
+         style="height: 100%;position: relative;">
+        <div style="text-align: left;margin-top: 10rem">
+            <h2 style="padding: 10px">扫码付款</h2>
+            <div>
+                <div style="background: #F4F4F4;padding: 10px 0 10px 0;">
+                    <div style="padding: 10px;background: white">
+                        <div style="font-size: 16px">
+                            <label>订单号：</label>
+                            <label th:text="${orderId}">123</label>
+                        </div>
+                        <div style="font-size: 16px">
+                            <label>订单金额：</label>
+                            <label style="color: orangered" th:text="'¥'+${allCost}">123</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--   // 微信付款的二维码-->
+            <div id="qrcodeDiv" style="padding: 20px 10px">
+
+            </div>
+            <div style="display: inline-block;padding: 10px">
+                <img id="wxImg" th:src="@{/images/pay/wxpay.png}" style="height: 40px"/>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript" type="text/javascript">
+    // 算购物车里边的钱
+    $(function () {
+        layui.use(['layer', 'form',], function () {
+            var layer = layui.layer;
+            var form = layui.form;
+            $("#qrcodeDiv").qrcode({
+                render: "canvas",    //设置渲染方式，有table和canvas，使用canvas方式渲染性能相对来说比较好
+                text: [[${qrcodeUrl}]],    //扫描二维码后显示的内容,可以直接填一个网址，扫描二维码后自动跳向该链接
+                width: "200",               //二维码的宽度
+                height: "200",              //二维码的高度
+                background: "#ffffff",       //二维码的后景色
+                foreground: "#000000",        //二维码的前景色
+                src: '/images/index/logoIcon.jpg'             //二维码中间的图片
+            });
+            var s = setInterval(function () { // js循环函数, 定时轮询，去检查去检查是否付款成功，成功之后，就执行一个跳转
+                $.get("/pages/back/order/getOrderStatus", {orderId: [[${orderId}]]}, function (res) {
+                    if (res) {
+                        clearInterval(s);
+                        layer.msg('您已经成功支付');
+                        // 执行跳转到订单列表页面
+                    }
+                }, "json")
+            }, 5000)
+        });
+    })
+
+</script>
+
+
+</body>
+
+</html>

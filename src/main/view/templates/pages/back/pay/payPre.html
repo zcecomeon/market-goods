@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" th:href="@{/images/logo/logo.png}" type="image/x-icon"/><!--公司网址图标-->
+<div th:replace="plugins/js::js"></div>
+<script type="text/javascript" th:src="@{/lh/layer/layer.js}"></script>
+<script type="text/javascript" th:src="@{/util/MD5.js}"></script>
+<body>
+
+<!--#fd0c2c到#fd2a47-->
+<div class="layui-row" style="position: absolute;left: 0;top: 0;bottom: 0;right: 0">
+    <div class="layui-col-xs12 layui-col-md6 layui-col-md-offset3 "
+         style="height: 100%;position: relative;">
+        <form id="payForm" th:action="@{/pages/back/pay/unifiedPay}" method="post">
+            <input name="allCost" type="hidden" th:value="${order.actualPayment}"/>
+            <input name="orderId" type="hidden" th:value="${order.orderId}"/>
+            <!--            // 这个code是手机微信支付需要的code,用这个code去获取手机微信支付的openid-->
+            <input name="code" type="hidden" th:value="${code}"/>
+
+            <div style="background: #00a500;text-align: center">
+                <h2 style="color: whitesmoke">支付收银台</h2>
+                <h1 style="color: white;font-weight: bold;margin: 5px" th:text="${order.actualPayment}">18.3</h1>
+                <div style="padding: 10px;color: white;background: #00a500">剩余支付时间：<span
+                        id="remainingPayTime"></span></div>
+            </div>
+
+            <div>
+                <div style="display: flex;justify-content: space-between;padding: 10px;align-items: center">
+                    <div>
+                        <img th:src="@{/images/pay/wxpay.png}" style="height: 2rem"/>
+                    </div>
+                    <div>
+                        <input type="radio" name="payType" value="微信支付" id="wxPay"/>
+                    </div>
+                </div>
+                <div style="display: flex;justify-content: space-between;padding: 10px;align-items: center">
+                    <div>
+                        <img th:src="@{/images/pay/alipay.jpg}" style="height: 2rem"/>
+                    </div>
+                    <div>
+                        <input type="radio" name="payType" checked value="支付宝" id="aliPay"/>
+                    </div>
+                </div>
+                <div style="display: flex;justify-content: space-between;padding: 10px;align-items: center">
+                    <div>
+                        <img th:src="@{/images/pay/yuepay.png}" style="height: 2rem"/>
+                    </div>
+                    <div>
+                        <input type="radio" name="payType" value="余额支付" id="yuePay"/>
+                    </div>
+                </div>
+            </div>
+            <div id="nowPay"
+                 style="color: white;font-weight: bold;font-size: 1rem;position: absolute;border-bottom: 0;left: 10px;right: 10px;bottom:0;background: orangered;border-radius: 10px;text-align: center;padding: 10px">
+                立即支付
+            </div>
+
+        </form>
+
+
+    </div>
+</div>
+
+
+<script th:inline="javascript" type="text/javascript">
+    // 算购物车里边的钱
+
+    $(function () {
+        var paying = true
+        layui.use(['layer', 'form',], function () {
+            var layer = layui.layer;
+            var form = layui.form;
+            $("#nowPay").one('click', function () {
+                let payType = '';
+                $("[name=payType]").each(function () {
+                    if (this.checked) {
+                        payType = this.value;
+                    }
+                });
+                if (is_weixin() && "微信支付" == payType) {
+                    alert('你好')
+                    $.post("/pages/back/pay/wxBXiadan", $("#payForm").serializeArray(), function (data) {
+                        if (data.package != "") {
+                            var appId = data.appid;
+                            var timestamp = new Date().getTime().toString();//支付签名时间戳
+                            var nonceStr = (Math.random() * 1000).toString();// 支付签名随机串
+                            //prepayId : 这个参数是服务器获取的微信统一下单号
+                            var prepay_id = 'prepay_id=' + data.package;// 统一支付接口返回的prepay_id参数值
+                            var signType = 'MD5';// 签名方式
+                            //生成签名的规则我就不多说了，直接看文档https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3
+                            var stringA = "appId=" + appId + "&nonceStr=" + nonceStr + "&package=" + prepay_id + "&signType=" + signType + "&timeStamp=" + timestamp;
+                            var stringSignTemp = stringA + "&key=" + data.key;//注：key为商户平台设置的密钥key
+                            //utilMd5:是一个网上要的md5js文件，在后面会上传
+                            var sign = hexMD5(stringSignTemp).toUpperCase();//注：MD5签名方式
+                            //WeixinJSBridge : 微信内置对象在其他浏览器中无效。
+                            WeixinJSBridge.invoke(
+                                'getBrandWCPayRequest', {
+                                    "appId": appId,     //公众号名称，由商户传入
+                                    "timeStamp": timestamp,         //时间戳，自1970年以来的秒数
+                                    "nonceStr": nonceStr, //随机串
+                                    "package": prepay_id,
+                                    "signType": signType,         //微信签名方式：
+                                    "paySign": sign //微信签名
+                                },
+                                function (res) {// 支付完成之后的回调函数
+
+                                }
+                            );
+                        } else {
+                            layer.msg('下单失败')
+                        }
+                    });
+
+                }
+                $("#payForm").submit();
+            })
+            let createTime = [[${orderCreateTime}]];
+            setInterval(function () {
+                // console.log((new Date().getTime()-))
+                let remaining = 30 * 60 * 1000 - (new Date().getTime() - createTime);
+//计算出相差天数
+                let days = Math.floor(remaining / (24 * 3600 * 1000))
+                //计算出小时数
+                let leave1 = remaining % (24 * 3600 * 1000);    //计算天数后剩余的毫秒数
+                let hours = Math.floor(leave1 / (3600 * 1000));
+//计算相差分钟数
+                let leave2 = leave1 % (3600 * 1000);       //计算小时数后剩余的毫秒数
+                let minutes = Math.floor(leave2 / (60 * 1000));
+//计算相差秒数
+                let leave3 = leave2 % (60 * 1000);    //计算分钟数后剩余的毫秒数
+                let seconds = Math.round(leave3 / 1000);
+
+                $("#remainingPayTime").text(minutes + ":" + seconds)
+                // $("#remainingPayTime").text(now)
+            }, 1000)
+
+
+            // $("#nowPay").click(function () {
+            //     if (paying) {
+            //         paying = false;
+            //
+            //     }
+            // })
+
+
+        });
+
+    })
+
+</script>
+
+
+</body>
+
+</html>

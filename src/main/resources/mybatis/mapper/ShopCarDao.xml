@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zce.market.dao.ShopCarDao">
+  <resultMap id="BaseResultMap" type="com.zce.market.pojo.entity.ShopCar">
+    <id column="shop_card_id" jdbcType="INTEGER" property="shopCardId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shop_card_id, user_id, goods_id, `count`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shop_car
+    where shop_card_id = #{shopCardId,jdbcType=INTEGER}
+  </select>
+
+  <select id="findCarByUserIdAndGoods" resultType="com.zce.market.pojo.entity.ShopCar">
+    select <include refid="Base_Column_List"></include> from shop_car where user_id=#{userId} and
+    goods_id=#{goodsId}
+  </select>
+  <select id="selectCarCountByUserId" resultType="java.lang.Integer">
+    select count(*) from shop_car where  user_id=#{userId};
+  </select>
+
+  <select id="findUserCars" resultType="com.zce.market.pojo.vo.ShopCarVO">
+    select
+    <include refid="Base_Column_List"/>
+    from shop_car where user_id=#{userId};
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from shop_car
+    where shop_card_id = #{shopCardId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="shop_card_id" keyProperty="shopCardId" parameterType="com.zce.market.pojo.entity.ShopCar" useGeneratedKeys="true">
+    insert into shop_car (user_id, goods_id, `count`
+      )
+    values (#{userId,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="shop_card_id" keyProperty="shopCardId" parameterType="com.zce.market.pojo.entity.ShopCar" useGeneratedKeys="true">
+    insert into shop_car
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="count != null">
+        `count`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zce.market.pojo.entity.ShopCar">
+    update shop_car
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        `count` = #{count,jdbcType=INTEGER},
+      </if>
+    </set>
+    where shop_card_id = #{shopCardId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zce.market.pojo.entity.ShopCar">
+    update shop_car
+    set user_id = #{userId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      `count` = #{count,jdbcType=INTEGER}
+    where shop_card_id = #{shopCardId,jdbcType=INTEGER}
+  </update>
+</mapper>

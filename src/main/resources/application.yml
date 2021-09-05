@@ -1,0 +1,16 @@
+server:
+  port: 8080  #当前应用运行的端口
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource #连接池类型
+    password: 123456
+    username: root #当前MySQL版本为8.0以上加cj
+    url: jdbc:mysql://localhost:3306/goods_market_db?serverTimezone=GMT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true  #数据库表中的下划线自动转换成驼峰    #mapper文件的路径，这个路径下的mapper.xml会被自动加载成mybatis映射文件
+  mapper-locations: classpath:mybatis/mapper/**/*.xml #mapper文件路径，下面的mapper.xml会被自动加载成mybatis映射文件
+

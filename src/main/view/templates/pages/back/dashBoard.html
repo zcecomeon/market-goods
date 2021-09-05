@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<div th:replace="plugins/js::js"></div>
+<style>
+    .form-inline {
+        margin: 10px;
+    }
+    .splitBar {
+        width: 25px;
+        height: 25px;
+        border: solid 1px green;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer
+    }
+    .splitBar:hover {
+        background: green;
+        color: white;
+    }
+
+    /*修改layui表格的高度*/
+    .layui-table-cell {
+        height: auto;
+    }
+
+</style>
+<body style="margin: 0">
+<!--<h1>欢迎登录后台首页</h1>-->
+<!--<h1 th:text="${session.carCount}"></h1>-->
+<ul class="layui-nav layui-bg-green" lay-filter="">
+    ss
+</ul>
+<!--// 加上th:inline='javascript' 否则可能会因为小于或者大于符号导致 thymeleaf模板引擎解析错误。-->
+<script th:inline="javascript" type="text/javascript">
+    $(function () {
+        layui.use(['table', 'layer'], function () {
+            var table = layui.table;
+            var layer = layui.layer;
+            layer.msg("登录成功");
+        });
+    })
+</script>
+</body>
+</html>

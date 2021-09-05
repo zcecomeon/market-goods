@@ -1,0 +1,28 @@
+/*最小宽度超过300是手机*/
+@media (min-width: 200px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+/*最小宽度超过768是平板*/
+@media (min-width: 768px) {
+    html {
+        font-size: 22px;
+    }
+}
+
+/*最小宽度超过768是普通*/
+@media (min-width: 992px) {
+    html {
+        font-size: 22px;
+    }
+}
+
+/*最小宽度超过768是大电脑*/
+@media (min-width: 1200px) {
+    html {
+        font-size: 22px;
+    }
+}
+

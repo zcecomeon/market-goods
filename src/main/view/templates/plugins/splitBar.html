@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="splitBar">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" th:href="@{/bootstrap/css/bootstrap.min.css}">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script type="text/javascript" th:src="@{/jquery/jquery-3.2.1.min.js}"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        .bar {
+            height: 30px;
+            width: 30px;
+            border: solid 1px lightgray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: none;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .bar:hover {
+            background: #f0f0f0;
+        }
+    </style>
+    <div>
+        <div style="display: flex;color:  #337ab7;align-items: center" id="splitBarDiv">
+
+        </div>
+    </div>
+
+    <script th:inline="javascript" type="text/javascript">
+
+        // 获取总页数
+        function getPageSize(allCount, limit) {
+            if (allCount > 0) {
+                return Math.ceil(allCount / limit)
+            } else {
+                return 1;
+            }
+        }
+
+        /**
+         *  增加每个按钮的方法
+         * @param index
+         * @param allCount
+         * @param limit
+         */
+        function addBar(index, allCount, limit, currentPage) {
+            if (index === '...') {
+                let bar = $(" <div class=\"bar\" >" + index + "</div>");
+                $("#splitBarDiv").append(bar);
+            } else {
+                let bar = $(" <div class=\"bar\" style='' >" + index + "</div>");
+                if (index == '上一页') {
+                    bar.css({
+                        'border-radius': '5px 0 0 5px',
+                        width: '60px'
+                    });
+                    if (currentPage == 1) {
+                        bar.css({
+                            background: "rgb(240,240,240)",
+                            cursor: 'not-allowed'
+                        });
+                    }
+                }
+                if (index == '下一页') {
+                    bar.css({
+                        width: '60px'
+                    });
+                    if (currentPage == getPageSize(allCount, limit)) {
+                        bar.css({
+                            background: "rgb(240,240,240)",
+                            cursor: 'not-allowed'
+                        });
+                    }
+                }
+                if (currentPage == index) {
+                    bar.css({
+                        background: '#337ab7',
+                        color: 'white',
+                        border: 'solid #337ab7 ',
+                    });
+                }
+                if (index != '上一页' && index != '下一页') {
+                    bar.click(function () {
+                        // 应该去执行 currentPage=index
+                        GlobalOptions.where.currentPage = index;
+                        getTableDataRender(GlobalOptions)
+                    })
+                }
+                if (index == '上一页') {
+                    bar.click(function () {
+                        // 应该去执行 currentPage=index
+                        if (currentPage > 1) {
+                            GlobalOptions.where.currentPage--;
+                            getTableDataRender(GlobalOptions)
+                        }
+                    })
+                }
+
+                if (index == '下一页') {
+                    bar.click(function () {
+                        // 应该去执行 currentPage=index
+                        if (currentPage < getPageSize(allCount, limit)) {
+                            GlobalOptions.where.currentPage++;
+                            getTableDataRender(GlobalOptions)
+                        }
+                    })
+                }
+                $("#splitBarDiv").append(bar);
+
+
+            }
+
+        }
+
+        function createSplitBar(allCount, limit, currentPage) {
+            $("#splitBarDiv").empty();
+            let pageSize = getPageSize(allCount, limit);
+            addBar('上一页', allCount, limit, currentPage);
+
+            if (pageSize < 8) {// 全部循环显示所有的按钮
+                for (let x = 1; x <= pageSize; x++) {
+                    addBar(x, allCount, limit, currentPage);
+                }
+            } else {
+                if (currentPage >= 6) {
+                    addBar(1, allCount, limit, currentPage);
+                    addBar('...', allCount, limit, currentPage);
+
+                    if (currentPage + 4 < pageSize) {
+                        for (let x = currentPage - 2; x <= currentPage + 2; x++) {
+                            addBar(x, allCount, limit, currentPage);
+                        }
+                        addBar('...', allCount, limit, currentPage)
+                        addBar(pageSize, allCount, limit, currentPage)
+                    } else {
+                        for (let x = currentPage - 2; x <= pageSize; x++) {
+                            addBar(x, allCount, limit, currentPage);
+                        }
+                    }
+                } else {
+                    if (currentPage + 4 >= pageSize) {
+                        for (let x = 1; x <= pageSize; x++) {
+                            addBar(x, allCount, limit, currentPage);
+                        }
+                    } else {
+                        for (let x = 1; x <= currentPage + 2; x++) {
+                            addBar(x, allCount, limit, currentPage);
+                        }
+                        addBar('...', allCount, limit, currentPage);
+                        addBar(pageSize, allCount, limit, currentPage);
+                    }
+
+                }
+            }
+            $(".bar").each(function () {
+                let thisJobj = $(this);
+                let str = thisJobj.text();
+                if (str == currentPage) {
+                    thisJobj.next().css({
+                        'border-left': 'none ',
+                    });
+                }
+            })
+
+
+            let input = $(" <div style=\"display: flex\">\n" +
+                "            <div style=\"display: flex;align-items: center;border: solid lightgray 1px;height: 30px;border-right: none;padding: 0 10px\">\n" +
+                "                <div >\n" +
+                "                    到\n" +
+                "                </div>\n" +
+                "                <input class=\"form-control\" oninput=\"value=value.replace(/[^\\d]/g,'')\" style=\"height: 25px;border: solid lightgray 0.1px;border-radius: 0;width: 40px;padding: 2px;box-shadow: none\">\n" +
+                "                <div>\n" +
+                "                    页\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>");
+            input.find("input").blur(function () {
+
+                if (this.value > pageSize) {
+                    GlobalOptions.where.currentPage = pageSize;
+                } else {
+                    GlobalOptions.where.currentPage = this.value;
+                }
+                if (this.value != '') {
+                    getTableDataRender(GlobalOptions);
+                }
+            });
+            addBar('下一页', allCount, limit, currentPage);
+
+            $("#splitBarDiv").append(input);
+
+            let select = $("<select class=\"form-control\" style='height: 30px;padding: 0;border-radius: 0 5px 5px 0;width: 75px' >\n" +
+                " </select>");
+            for (let x = 10; x < 91; x += 10) {
+                let selected = GlobalOptions.where.limit == x ? 'selected' : '';
+                select.append($("<option value='" + x + "' " + selected + ">" + x + "条/页</option>"))
+            }
+            select.change(function () {
+                GlobalOptions.where.limit = this.value;
+                GlobalOptions.where.currentPage = 1;
+                getTableDataRender(GlobalOptions)
+            });
+
+            $("#splitBarDiv").append(select);
+            $("#splitBarDiv").append($("<span style='color: black;font-size: 16px;margin-left: 10px'>共<span style='color: red;font-weight: bold'>" + allCount + "</span>条</span>"));
+        }
+
+        function getTableDataRender(options) {
+            options.url = GlobalOptions.url;
+            getTableData(options, GlobalFnc)
+        }
+
+        var GlobalOptions;
+        var GlobalFnc;
+
+        /**
+         * 加载表格数据
+         * options 对象，传递的选项,fnc指的调用的时候的回调函数，传递参数
+         */
+        function getTableData(options, fnc) {
+            if (options.url == undefined) {
+                alert('程序报错，请务必传入数据接口！');
+            }
+            if (options.where == undefined) {
+                options.where = {
+                    currentPage: 1,
+                    limit: 10
+                }
+            }
+            if (options.where.currentPage == undefined) {
+                options.where.currentPage = 1;
+            }
+            if (options.where.limit == undefined) {
+                options.where.limit = 10;
+            }
+            GlobalOptions = options;
+            GlobalFnc = fnc;
+            $.post(options.url, options.where, function (res) {
+                fnc(res);
+                // 创建分页按钮条
+                createSplitBar(res.count, options.where.limit, options.where.currentPage);
+            });
+        }
+    </script>
+</div>
+</html>

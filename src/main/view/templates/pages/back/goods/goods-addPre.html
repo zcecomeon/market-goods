@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="plugins/js::js"></div>
+<script type="text/javascript" th:src="@{/wangEditor/wangEditor.js}"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ti</title>
+</head>
+<style>
+    #previewImg:hover{
+        cursor: pointer;
+    }
+</style>
+
+<body style="padding: 20px;" class="layui-card-body layui-card">
+
+<div style="display: flex">
+    <div>
+        <div style="">
+            <form class="layui-form" id="goodForm" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">商品类型</label>
+                    <div class="layui-input-block" style="width: 300px;">
+                        <select name="goodsTypeId" lay-filter="goodsTypeId">
+                            <option value=""></option>
+                            <option value="0">手机</option>
+                            <option value="1" selected="">电脑</option>
+                            <option value="2">笔记本</option>
+                            <option value="3">蓝牙耳机</option>
+                            <option value="4">音响</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="">
+                        <label class="layui-form-label">商品标题</label>
+                        <div class="layui-input-inline" style="width:300px">
+                            <input type="text" name="title"  class="layui-input" lay-verify="required">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="">
+                        <label class="layui-form-label">商品原价</label>
+                        <div class="layui-input-inline" style="width:300px">
+                            <input type="text" name="oldPrice"  class="layui-input" lay-verify="required|number">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="">
+                        <label class="layui-form-label">商品现价</label>
+                        <div class="layui-input-inline" style="width:300px">
+                            <input type="text" name="price"  class="layui-input" lay-verify="required|number">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">是否在售</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" checked="" name="onSale"
+                               lay-skin="switch" lay-filter="switchTest"
+                               lay-text="在售|已下架">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="">
+                        <label class="layui-form-label">商品库存</label>
+                        <div class="layui-input-inline" style="width:300px">
+                            <input type="text" name="count"  class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="">
+                        <label class="layui-form-label">商户名称</label>
+                        <div class="layui-input-inline" style="width:300px">
+                            <input type="text" name="merchantName"  class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="">
+                        <label class="layui-form-label">评价次数</label>
+                        <div class="layui-input-inline" style="width:300px">
+                            <input type="text" name="evaluationCount"  class="layui-input">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="">
+                        <label class="layui-form-label">商品图片</label>
+                        <div class="layui-input-inline" style="width:300px">
+
+                            <!--<img th:text="上传图片" id="previewImg"-->
+                            <img th:src="@{/images/index/add_pro.png}" id="previewImg"
+                                 style="border-radius: 5px;border:solid lightgrey 1px;box-shadow:0 0 10px lightgrey;width:125px;height:150px">
+                            <input id= "pic" type="file" name="pic" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="button" id="commit" class="layui-btn"
+                                lay-submit="" lay-filter="goodForm">确定添加</button>
+                    </div>
+                </div>
+                <input type="hidden" name="detail" id="detail">
+            </form>
+        </div>
+    </div>
+    
+    <div style="flex-grow: 1">
+        <h3 style="text-align: center;">商品详情</h3>
+        <div id="wangEdit" style="width:100%">
+        </div>
+
+    </div>
+
+</div>
+
+<script th:inline="javascript" type="text/javascript">
+    $(function () {
+        // 富文本
+        var E = window.wangEditor;
+        var editor = new E('#wangEdit');
+        // 使用 base64 保存图片
+        editor.customConfig.uploadImgShowBase64 = true;
+        // 使用路径传参
+        editor.customConfig.uploadImgParamsWithUrl = true;
+        editor.create();
+
+        layui.use(['table', 'form', 'layer'], function () {
+            var table = layui.table;
+            //var layer = layui.layer;
+            var form = layui.form;
+
+            $("#previewImg").click(function () {
+                $("#pic").click();
+                //alert("nhao");
+            });
+
+            $("#pic").change(function () {
+                let file=this.files[0];//获取当前图片
+                imgPreview(file,$("#previewImg")[0]);
+            });
+
+            // $("#pic").change(function () {
+            //     let file = this.files[0];
+            //     imgPreview(file, $("#previewImg")[0]);
+            // });
+
+            $("#commit").click(function () {
+                let text=editor.txt.html();
+                console.log(text);
+                $("#detail").val(text);
+
+                $("#goodForm").submit();
+
+            });
+
+            form.on('submit(goodForm)', function (data) {
+                // alert("你好");
+                // console.log(data.elem);
+                // console.log(data.form);
+                // console.log(data.field);
+                // return false;
+
+                let text = editor.txt.html();
+                $("#detail").val(text);
+                let formData = new FormData(data.form);
+                $.ajax({
+                    url: "/pages/back/goods/add",// 请求数据服务器地址，只能是当前项目，JSONP才能访问外网（需要服务器配合才能用）
+                    contentType: false,// 默认就是表单数据(不写)，如果此时要传递的是json字符串，
+                    // 那么此时就用application/json,如果此时要传递图片"multipart/form-data，还有数组，集合，还有对象，那么contentType必须指定为false
+                    data: formData,// 要上传的参数
+                    dataType: 'json',// 服务器响应数据：json,text,html,xml
+                    processData: false,//布尔值,一般都不用设置，规定通过请求发送的数据是否转换为查询字符串。默认是 true。如果此时上传的时候，有图片，这里必须设置false,
+                    success: function (res) {// 请求成功，回调函数,data，指的就是服务器返回的数据
+                        if (res.res) {// 如果增加成功
+                            layer.msg(res.msg);
+                        }
+                    },
+                    type: 'post',// ajax请求的方式，post或get
+                })
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+        });
+
+    })
+</script>
+
+</body>
+
+</html>
