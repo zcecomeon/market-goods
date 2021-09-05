@@ -1,4 +1,4 @@
-package com.zce.market.controller.pages.back;
+package com.zce.market.controller.pages.back.goods;
 import com.zce.market.controller.BaseController;
 import com.zce.market.pojo.entity.Goods;
 import com.zce.market.service.GoodsService;
