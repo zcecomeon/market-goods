@@ -17,7 +17,9 @@
     from goods_type
     where goods_type_id = #{goodsTypeId,jdbcType=INTEGER}
   </select>
+
     <select id="selectTypesByParentId" resultType="com.zce.market.pojo.vo.GoodsTypeVO">
+
       select <include refid="Base_Column_List"></include> from goods_type where parent_type_id=#{parentTypeId}
     </select>
   <select id="selectTypesByParentIds" resultType="com.zce.market.pojo.vo.GoodsTypeVO">

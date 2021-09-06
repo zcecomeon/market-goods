@@ -11,10 +11,10 @@
         <div>
             <form class="layui-form" id="goodForm" action="">
                 <div class="layui-form-item">
-                    <label class="layui-form-label">类型选择</label>
+                    <label class="layui-form-label">上级类型</label>
                     <div class="layui-input-block" style="width: 200px">
                         <select name="parentTypeId" lay-filter="aihao">
-                            <option value="-1" selected="">类型一</option>
+                            <option value="-1" selected="">根类型</option>
                             <option th:value="${t.goodsTypeId}" th:each="t:${types}" th:text="${t.typeName}">写作
                             </option>
                         </select>

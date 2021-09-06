@@ -12,7 +12,6 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 /**
  * @Author 时光荒凉了来时路
  * @Date 2021/9/3 16:28
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 public class TypeServiceImpl implements TypeService {
     @Resource
     GoodsTypeDao goodsTypeDao;
-
     @Override
     public ResponseDTO add(GoodsType goodsType) {
         if (goodsTypeDao.insert(goodsType) == 1) {// 表示增加成功
@@ -30,7 +28,6 @@ public class TypeServiceImpl implements TypeService {
             return ResponseDTO.fail("增加商品类型失败");
         }
     }
-
     @Override
     public List<GoodsTypeVO> selectTypesByParentId(int i) {
         List<GoodsTypeVO> parentTypes = goodsTypeDao.selectTypesByParentId(i);
@@ -38,7 +35,6 @@ public class TypeServiceImpl implements TypeService {
 //            List<GoodsTypeVO> childrenTypes = goodsTypeDao.selectTypesByParentId(g.getGoodsTypeId());
 //            g.setChildrenTypes(childrenTypes);
 //        }
-
         if(!CollectionUtils.isEmpty(parentTypes)){
             List<GoodsTypeVO> childrenTypes = goodsTypeDao.selectTypesByParentIds(parentTypes);
             Map<Integer, List<GoodsTypeVO>> collect = childrenTypes.stream().collect(Collectors.groupingBy(GoodsTypeVO::getParentTypeId));
@@ -47,7 +43,6 @@ public class TypeServiceImpl implements TypeService {
                 g.setChildrenTypes(childrenTypes1);
             }
         }
-
         return parentTypes;
     }
 

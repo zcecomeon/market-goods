@@ -30,6 +30,7 @@ public class TypeController extends BaseController {
     TypeService typeService;
     @RequestMapping("addPre")
     String addPre(Model model){
+        model.addAttribute("types",typeService.selectTypesByParentId(-1));
         return "pages/back/type/type-addPre";
     }
     @RequestMapping("add")
