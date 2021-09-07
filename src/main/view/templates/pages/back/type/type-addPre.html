@@ -15,8 +15,7 @@
                     <div class="layui-input-block" style="width: 200px">
                         <select name="parentTypeId" lay-filter="aihao">
                             <option value="-1" selected="">根类型</option>
-                            <option th:value="${t.goodsTypeId}" th:each="t:${types}" th:text="${t.typeName}">写作
-                            </option>
+                            <option th:value="${t.goodsTypeId}" th:each="t:${types}" th:text="${t.typeName}"></option>
                         </select>
                     </div>
                 </div>

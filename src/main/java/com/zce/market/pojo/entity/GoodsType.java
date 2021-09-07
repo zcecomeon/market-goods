@@ -1,12 +1,14 @@
 package com.zce.market.pojo.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @Author 时光荒凉了来时路
  * @Date 2021/9/3 11:23
  */
 public class GoodsType implements Serializable {
+
     /**
      * 商品类型id
      */

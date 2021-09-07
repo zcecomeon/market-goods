@@ -27,7 +27,7 @@ public class IndexController {
     String index(Model model){
         //下面return会自动查找页面
         User user = userDao.selectByPrimaryKey(1);
-        model.addAttribute("type",typeService.selectTypesByParentId(-1));
+        model.addAttribute("types",typeService.selectTypesByParentId(-1));
         return "index";//此时不需要@ResponseBody
     }
 }

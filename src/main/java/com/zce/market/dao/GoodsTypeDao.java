@@ -23,5 +23,7 @@ public interface GoodsTypeDao {
 
     List<GoodsTypeVO> selectTypesByParentId(int i);
 
+    //List<GoodsType> selectTypesByParentId(int i);
+
     List<GoodsTypeVO> selectTypesByParentIds(@Param("ids") List parentTypes);
 }

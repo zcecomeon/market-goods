@@ -31,20 +31,22 @@ public class TypeServiceImpl implements TypeService {
     @Override
     public List<GoodsTypeVO> selectTypesByParentId(int i) {
         List<GoodsTypeVO> parentTypes = goodsTypeDao.selectTypesByParentId(i);
-//        for (GoodsTypeVO g : parentTypes) {// for循环里边调用查询语句，非常影响性能
-//            List<GoodsTypeVO> childrenTypes = goodsTypeDao.selectTypesByParentId(g.getGoodsTypeId());
+
+//        for(GoodsTypeVO g:parentTypes)
+//        {
+//            List<GoodsTypeVO> childrenTypes=goodsTypeDao.selectTypesByParentId(g.getGoodsTypeId());
 //            g.setChildrenTypes(childrenTypes);
 //        }
-        if(!CollectionUtils.isEmpty(parentTypes)){
+
+        //if(!CollectionUtils.isEmpty(parentTypes)){
             List<GoodsTypeVO> childrenTypes = goodsTypeDao.selectTypesByParentIds(parentTypes);
             Map<Integer, List<GoodsTypeVO>> collect = childrenTypes.stream().collect(Collectors.groupingBy(GoodsTypeVO::getParentTypeId));
             for (GoodsTypeVO g : parentTypes) {// for循环里边调用查询语句，非常影响性能
                 List<GoodsTypeVO> childrenTypes1 = collect.get(g.getGoodsTypeId());
                 g.setChildrenTypes(childrenTypes1);
             }
-        }
+        //}
         return parentTypes;
+        //return goodsTypeDao.selectTypesByParentId(i);
     }
-
-
 }

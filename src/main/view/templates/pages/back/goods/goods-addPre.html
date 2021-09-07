@@ -20,15 +20,20 @@
         <div style="">
             <form class="layui-form" id="goodForm" action="">
                 <div class="layui-form-item">
+                    <label class="layui-form-label">根类型</label>
+                    <div class="layui-input-block" style="width: 300px;">
+                        <select lay-filter="parentTypes" id="parentTypes">
+                            <option th:value="${t.goodsTypeId}" th:each="t:${types}" th:text="${t.TypeName}"></option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
                     <label class="layui-form-label">商品类型</label>
                     <div class="layui-input-block" style="width: 300px;">
-                        <select name="goodsTypeId" lay-filter="goodsTypeId">
-                            <option value=""></option>
-                            <option value="0">手机</option>
-                            <option value="1" selected="">电脑</option>
-                            <option value="2">笔记本</option>
-                            <option value="3">蓝牙耳机</option>
-                            <option value="4">音响</option>
+                        <select name="goodsTypeId" id="goodsTypeId" lay-filter="goodsTypeId">
+                            <option th:value="${t.goodsTypeId}" th:each="t:${types[0].childrenTypes}"
+                            th:text="${t.TypeName}"></option>
                         </select>
                     </div>
                 </div>
@@ -145,6 +150,8 @@
             //var layer = layui.layer;
             var form = layui.form;
 
+
+
             $("#previewImg").click(function () {
                 $("#pic").click();
                 //alert("nhao");
@@ -167,6 +174,31 @@
 
                 $("#goodForm").submit();
 
+            });
+
+            form.on('select(parentTypes)', function (data) {
+                let pid = data.value;
+                let types = [[${types}]];
+                let childrenTypes;
+                console.log(pid);
+                console.log(types);
+                $("#goodsTypeId").empty();
+                for (let x = 0; x < types.length; x++) {
+                    let type = types[x];
+                    if (pid == type.goodsTypeId) {
+                        childrenTypes = type.childrenTypes;
+                    }
+                }
+                console.log(childrenTypes);
+                if (childrenTypes != null) {
+                    for (let x = 0; x < childrenTypes.length; x++) {
+                        let type = childrenTypes[x];
+                        let option = $("<option value='" + type.goodsTypeId + "'>" + type.typeName + "</option>")
+                        $("#goodsTypeId").append(option);
+                    }
+                }
+
+                form.render();// 重新渲染才能生效
             });
 
             form.on('submit(goodForm)', function (data) {
