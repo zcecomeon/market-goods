@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="plugins/js::js"></div>
 <head>
     <meta charset="UTF-8">
     <title>仿京东商城</title>
@@ -92,9 +93,8 @@
             </div>
         </div>
     </div>
-    <div style="width；80%；border: solid red 1px;display: flex;padding: 20px 5px;flex-wrap: wrap"id="goodsDiv"></div>
+    <div style="width；80%;border: solid red 1px;display: flex;padding: 20px 5px;flex-wrap: wrap"id="goodsDiv"></div>
 
-    <div style="width:80%;">
     <div style="border:solid red;display: flex;padding:20px 10px">
         <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
             <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
@@ -104,67 +104,10 @@
             </div>
             <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
             <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
-        </div>
-
-        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-            <div id="goods_title2">
-                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-            </div>
-            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
-        </div>
-
-        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-            <div id="goods_title3">
-                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-            </div>
-            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
         </div>
     </div>
-    <div style="border:solid red;display: flex;padding:20px 10px">
-        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-            <div id="goods_title4">
-                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-            </div>
-            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
 
-        </div>
 
-        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-            <div id="goods_title5">
-                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-            </div>
-            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
-        </div>
-
-        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-            <div id="goods_title6">
-                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-            </div>
-            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
-        </div>
-
-    </div>
-</div>
 </div>
 
 <script th:inline="javascript" type="text/javascript">
@@ -175,6 +118,7 @@
             var form = layui.form;
 
             $("[id^=type-]").click(function () {
+               // alert(this.id);
                 let typeId = this.id.split('-')[1];
                 $("[id^=type-]").css({color: ''});
                 $(this).css({color: 'red'});

@@ -6,7 +6,6 @@
     <title>Title</title>
 </head>
 
-
 <body style="padding:20px">
 <div>
     <div style="display: flex;align-items: center">
@@ -35,24 +34,86 @@
 </div>
 <div class="layui-fluid">
     <div class="layui-row">
-        <div class="layui-col-md-8">
-            <div style="display: flex;">
-                <div>
-                    <img th:src="${goods.img}"/>
+        <div class="layui-col-md-8 layui-col-md-offset2">
+            <div style="display: flex">
+                <div style="padding: 20px">
+                    <img th:src="${goods.img}" style="width: 300px;height: 300px"/>
                 </div>
-                <div>右边就是信息</div>
+                <div style="padding: 20px">
+                    <h2 th:text="${goods.title}" style="font-weight: bold;margin: 10px"></h2>
+                    <div style="margin: 10px;text-decoration:line-through" th:text="'原价：'+${goods.oldPrice}"></div>
+                    <div style="margin: 10px"><span>秒杀价:</span><span th:text="${goods.price}"
+                                                                     style="font-weight: bold;color: orangered;margin: 10px;font-size: 20px"></span>
+                    </div>
+                    <div style="margin: 10px;" th:text="'库存：'+${goods.count}"></div>
+                    <div style="margin: 10px;" th:text="'商家：'+${goods.merchantName}"></div>
+                    <div style="margin: 10px;"
+                         th:text="'评价次数：'+${goods.evaluationCount}"></div>
+
+                    <div style="display: flex;padding: 10px">
+                        <div style="display: flex;align-items: center">
+                            <div id="add"
+                                 style="user-select: none;height: 30px;width: 30px;display: flex;align-items: center;justify-content: center;background: rgb(240,240,240);font-size: 20px;font-weight: bold;cursor: pointer">
+                                +
+                            </div>
+                            <input style="height: 26px;width: 40px;padding: 0 20px" id="count" value="0"/>
+                            <div id="cut"
+                                 style="user-select: none;height: 30px;width: 30px;display: flex;align-items: center;justify-content: center;background: rgb(240,240,240);font-size: 20px;font-weight: bold;cursor: pointer">
+                                -
+                            </div>
+
+                        </div>
+                        <div style="color: white;font-weight: bold;font-size: 18px;background: red;padding: 5px 10px;cursor: pointer;margin-left: 20px"
+                             id="addShopCar">
+                            加入购物车
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div>富文本</div>
+
+            <div th:utext="${goods.detail}" style="margin-left: 100px;padding:50px 100px">
+
+            </div>
+
+
         </div>
     </div>
 </div>
 
 <script th:inline="javascript" type="text/javascript">
     $(function () {
-        layui.use(['table','form','layer'],function () {
-           var table=layui.table;
-           var layer=layui.layer;
-           var form=layui.form;
+        layui.use(['table', 'form', 'layer'], function () {
+            var table = layui.table;
+            var layer = layui.layer;
+            var form = layui.form;
+            $("#add").click(function () {
+                let count = $("#count").val();
+                count++;
+                $("#count").val(count);
+            })
+            $("#cut").click(function () {
+                let count = $("#count").val();
+                if (count > 0) {
+                    count--;
+                }
+                $("#count").val(count);
+            })
+            $("#addShopCar").click(function () {
+                let shopCar = {};
+                shopCar.goodsId = [[${goods.goodsId}]];
+                shopCar.count = $("#count").val();
+                $.post('/pages/back/shopCar/edit', shopCar, function (res) {
+                    if (res.res) {
+                        layer.msg(res.msg);
+                        $("#myCarCount").text(res.data);
+                    } else {
+                        if (401 == res.status) {// 没有授权， 去登陆页面
+                            window.location = '/pages/front/loginPage';
+                        }
+                    }
+                });
+            })
+
         });
     })
 </script>
