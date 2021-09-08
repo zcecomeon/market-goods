@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 
-/**
- * creator：Administrator
- * date:2019/12/17
- */
 @Controller
 @RequestMapping("/pages/front/goods")
 public class GoodsControllerFront extends BaseController {
@@ -23,7 +19,6 @@ public class GoodsControllerFront extends BaseController {
 
     @Resource
     GoodsService goodsService;
-
 
     @RequestMapping("goodsDetail/{goodsId}")
     String goodsDetail(@PathVariable Integer goodsId, Model model) {

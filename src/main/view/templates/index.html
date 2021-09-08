@@ -81,8 +81,8 @@
     </div>
 </div>
 
-<div style="display: flex">
 
+<div style="display: flex">
     <div style="width:20%;border:solid red">
         <div style="display: flex;align-items: center;padding: 5px;"th:each="t:${types}">
             <div th:text="${t.typeName}" style="font-weight: bold;font-size:16px">电子</div>
@@ -90,82 +90,127 @@
                 <div th:id="'type-'+${ct.goodsTypeId}" style="margin:5px" th:each="ct:${t.childrenTypes}"
                      th:text="${ct.typeName}">手机</div>
             </div>
-
         </div>
     </div>
+    <div style="width；80%；border: solid red 1px;display: flex;padding: 20px 5px;flex-wrap: wrap"id="goodsDiv"></div>
 
     <div style="width:80%;">
-        <div style="border:solid red;display: flex;padding:20px 10px">
-            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-                <div id="goods_title1">
-                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-                </div>
-                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
+    <div style="border:solid red;display: flex;padding:20px 10px">
+        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+            <div id="goods_title1">
+                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
             </div>
+            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
 
-            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-                <div id="goods_title2">
-                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-                </div>
-                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
-            </div>
-
-            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-                <div id="goods_title3">
-                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-                </div>
-                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
-            </div>
         </div>
-        <div style="border:solid red;display: flex;padding:20px 10px">
-            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-                <div id="goods_title4">
-                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-                </div>
-                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
 
+        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+            <div id="goods_title2">
+                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
             </div>
+            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
 
-            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-                <div id="goods_title5">
-                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-                </div>
-                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+        </div>
 
+        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+            <div id="goods_title3">
+                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
             </div>
-
-            <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
-                <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
-                <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
-                <div id="goods_title6">
-                    realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
-                </div>
-                <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
-                <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
-
-            </div>
+            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
 
         </div>
     </div>
+    <div style="border:solid red;display: flex;padding:20px 10px">
+        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+            <div id="goods_title4">
+                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+            </div>
+            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+        </div>
+
+        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+            <div id="goods_title5">
+                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+            </div>
+            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+        </div>
+
+        <div style="padding: 10px;border: solid lightgray 1px;box-shadow:0 0 5px lightgray;width:33%">
+            <div style=""><img src="/images/index/phone.jpg"style="width:360px"/></div>
+            <div style="color:orangered"><span style="font-size: 30px">¥2499.00</span></div>
+            <div id="goods_title6">
+                realme 真我GT 大师探索版 120Hz三星AMOLED曲面屏 索尼IMX766传感器 骁龙
+            </div>
+            <div><span style="color: orangered;font-size: 14px">2万</span>+条评价</div>
+            <div style="color: gray; font-size: 14px;">realme真我京东自营旗舰店</div>
+
+        </div>
+
+    </div>
 </div>
+</div>
+
+<script th:inline="javascript" type="text/javascript">
+    $(function () {
+        layui.use(['table', 'form', 'layer'], function () {
+            var table = layui.table;
+            var layer = layui.layer;
+            var form = layui.form;
+
+            $("[id^=type-]").click(function () {
+                let typeId = this.id.split('-')[1];
+                $("[id^=type-]").css({color: ''});
+                $(this).css({color: 'red'});
+
+                $.post('/pages/back/goods/getGoodsByTypeId/' + typeId, {}, function (res) {
+                    let goodsDiv = $("#goodsDiv");
+                    goodsDiv.empty();//清空goodsDiv里边的商品
+                    if (res.res) {
+                        let data = res.data;
+                        for (let x = 0; x < data.length; x++) {
+                            let g = data[x];
+
+                            let goodsItem = $("<div style=\"padding: 10px;border: solid lightgray 1px;box-shadow: 0 0 5px lightgray;width: 26%;;margin: 15px\">\n" +
+                                "            <div><img src='" + g.img + "' style='width: 100%;height: 250px'></div>\n" +
+                                "            <div style=\"color: orangered;padding: 5px 0\">¥<span style=\"font-size: 22px;\">" + g.price + "</span></div>\n" +
+                                "            <div id=\"goods_title\">" + g.title + "</div>\n" +
+                                "            <div style=\"color: orangered;font-size:12px;font-weight: bold;padding: 5px 0;color: #646fb0\">" + g.evaluationCount + "万+<span\n" +
+                                "                    style=\"color: gray\">条评价</span></div>\n" +
+                                "            <div style=\"color: gray;font-size: 12px\">" + g.merchantName + "</div>\n" +
+                                "        </div>");
+
+                            goodsDiv.append(goodsItem);
+
+                            goodsItem.click(function () {
+                                window.location = 'pages/front/goods/goodsDetail/' + g.goodsId;
+
+                            })
+
+                        }
+                    }
+                });
+            })
+            $("[id^=type-]:eq(0)").click();
+        });
+    })
+</script>
 
 </body>
 </html>

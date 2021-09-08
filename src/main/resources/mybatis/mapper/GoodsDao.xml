@@ -24,6 +24,19 @@
     from goods
     where goods_id = #{goodsId,jdbcType=INTEGER}
   </select>
+    <select id="getGoodsByTypeId" resultType="com.zce.market.pojo.entity.Goods">
+      select <include refid="Base_Column_List"></include> from goods where goods_type_id=#{goodsTypeId};
+    </select>
+
+  <select id="selectGoodsByIds" resultType="com.zce.market.pojo.entity.Goods">
+    select
+    <include refid="Base_Column_List"/>
+    from goods where goods_id in
+    <foreach collection="ids" open="(" close=")" separator="," item="s">
+      #{s.goodsId}
+    </foreach>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from goods
     where goods_id = #{goodsId,jdbcType=INTEGER}
