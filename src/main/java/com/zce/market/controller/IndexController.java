@@ -30,4 +30,8 @@ public class IndexController {
         model.addAttribute("types",typeService.selectTypesByParentId(-1));
         return "index";//此时不需要@ResponseBody
     }
+    @RequestMapping("/pages/back/dashBoard")
+    String dashBoard() {
+        return "pages/back/dashBoard";
+    }
 }
