@@ -1,5 +1,7 @@
 package com.zce.market.controller.pages.back.shopcar;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.zce.market.controller.BaseController;
 import com.zce.market.pojo.dto.ResponseDTO;
 import com.zce.market.pojo.entity.ShopCar;
 import com.zce.market.pojo.vo.ShopCarVO;
@@ -23,7 +25,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/pages/back/shopCar")
-public class ShopCarController {
+public class ShopCarController extends BaseController {
     Logger logger = LoggerFactory.getLogger(ShopCarController.class);
     @Resource
     ShopCarService shopCarService;
@@ -32,11 +34,27 @@ public class ShopCarController {
      *
      * @returnC
      */
-
     @RequestMapping("showMyCar")
-    String shwoMyCar() {
+    String shwoMyCar(Model model) {
+        if(!StringUtils.isEmpty(getUserId())){
+            List<ShopCarVO> cars=shopCarService.findUserCars(getUserId());
+            model.addAttribute("cars",cars);//获取用户购物车列表
+        }else {
+            return "pages/front/login/loginPage";
+        }
         return "pages/back/shopcar/car-list";
     }
+
+//    @RequestMapping("shwoMyCar")
+//    String shwoMyCar(Model model) {
+//        if (!StringUtils.isEmpty(getUserId())) {
+//            List<ShopCarVO> cars = shopCarService.findUserCars(getUserId());
+//            model.addAttribute("cars", cars);
+//        } else {
+//            return "pages/front/login/loginPage";
+//        }
+//        return "pages/back/shopcar/car-list";
+//    }
 
     @RequestMapping("edit")
     @ResponseBody
@@ -48,6 +66,8 @@ public class ShopCarController {
         shopCar.setUserId((Integer) session.getAttribute("userId"));
         return shopCarService.edit(shopCar);
     }
+
+
     /**
      * 真正添加商品的方法
      *

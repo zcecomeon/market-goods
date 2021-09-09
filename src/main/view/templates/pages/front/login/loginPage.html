@@ -4,6 +4,7 @@
 <div th:replace="plugins/js::js"></div>
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <title>登录页面</title>
 </head>
 <!--下面是cdu引入方式-->
@@ -50,4 +51,57 @@
     </div>
 </div>
 </body>
+
+<div>
+    <script type="text/javascript">
+        layui.config({
+            base: '../res/static/js/util' //你存放新模块的目录，注意，不是layui的模块目录
+        }).use(['jquery','form'],function(){
+            var $ = layui.$,form = layui.form;
+            $("#find").click(function() {
+                if(!/^1\d{10}$/.test($("#phone").val())){
+                    layer.msg("请输入正确的手机号");
+                    return false;
+                }
+                var obj=this;
+                $.ajax({
+                    type:"get",
+                    url:"../json/login.json",
+                    dataType:"json",//返回的
+                    success:function(data) {
+
+                        if(data.result){
+                            $("#find").addClass(" layui-btn-disabled");
+                            $('#find').attr('disabled',"true");
+                            settime(obj);
+                            $("#msg").text(data.msg);
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    },
+                    error:function(msg) {
+                        console.log(msg);
+                    }
+                });
+            })
+            var countdown=60;
+            function settime(obj) {
+                if (countdown == 0) {
+                    obj.removeAttribute("disabled");
+                    obj.classList.remove("layui-btn-disabled")
+                    obj.value="获取验证码";
+                    countdown = 60;
+                    return;
+                } else {
+                    obj.value="重新发送(" + countdown + ")";
+                    countdown--;
+                }
+                setTimeout(function() {
+                        settime(obj) }
+                    ,1000)
+            }
+        })
+    </script>
+</div>
+
 </html>

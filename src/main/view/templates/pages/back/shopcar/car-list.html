@@ -46,23 +46,23 @@
         <div class="layui-col-md-8 layui-col-md-offset4">
             <h2 style="color: red;padding: 10px 0">全部商品 <span th:text="${session.carCount}"></span></h2>
             <div style="display: flex;border-top: solid lightgray 1px" th:each="c:${cars}" id="goodsItemDiv">
-                <div><input th:id="'check-'+${c.shopCarId}" type="checkbox"></div>
+                <div th:text="${c.shopCardId}"></div>
+                <div><input th:id="'check-'+${c.shopCardId}" type="checkbox"></div>
                 <div><img th:src="@{${c.goods.img}}" style="width:100px;height: 100px"/></div>
-                <div style="width: 200px" th:text="${c.goods.title}">先马（SAMA）黑金刚 黑色 ATX游戏电脑主机箱 宽体五金/钢化玻璃侧透/支</div>
-                <div>¥<span th:text="${c.goods.price}" th:id="'price-'+${c.shopCarId}">139.00</span></div>
+                <div style="width: 200px" th:text="${c.goods.title}">商品信息</div>
+                <div>¥<span th:text="${c.goods.price}" th:id="'price-'+${c.shopCardId}">显示价格</span></div>
                 <div>
-                    <div style="display: flex;align-items: center">
-                        <div th:id="'add-'+${c.shopCarId}"
-                             style="user-select: none;height: 30px;width: 30px;display: flex;align-items: center;justify-content: center;background: rgb(240,240,240);font-size: 20px;font-weight: bold;cursor: pointer">
+                    <div style="display: flex;align-items: center;">
+                        <div th:id="'add-'+${c.shopCardId}" style="user-select: none;height: 30px;
+                        width: 30px;display:flex;align-items: center;justify-content: center;background: rgb(240,240,240);font-size: 20px;font-weight: bold;cursor: pointer">
                             +
                         </div>
-                        <input style="height: 26px;width: 40px;padding: 0 20px" th:id="'count-'+${c.shopCarId}"
+                        <input style="height: 26px;width: 40px;padding: 0 20px" th:id="'count-'+${c.shopCardId}"
                                th:value="${c.count}"/>
-                        <div th:id="'cut-'+${c.shopCarId}"
+                        <div th:id="'cut-'+${c.shopCardId}"
                              style="user-select: none;height: 30px;width: 30px;display: flex;align-items: center;justify-content: center;background: rgb(240,240,240);font-size: 20px;font-weight: bold;cursor: pointer">
                             -
                         </div>
-
                     </div>
                 </div>
                 <div style="font-weight: bold;width: 100px">¥<span th:text="${c.goods.price*c.count}">139.00</span>
@@ -70,7 +70,6 @@
                 <div style="font-weight: bold">
                     <button class="layui-btn layui-btn-danger layui-btn-xs">删除</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -91,9 +90,10 @@
                 </div>
                 <div style="display: flex">
 
-                    <div style="margin-right: 20px;color: gray;padding: 10px">已选<span
-                            style="color: red;font-weight: bold;margin:5px;">0</span>商品
-                    </div>
+                    <!--<div style="margin-right: 20px;color: gray;padding: 10px">已选<span-->
+                            <!--style="color: red;font-weight: bold;margin:5px;">0</span>商品-->
+                    <!--</div>-->
+
                     <div style="color: gray;margin-right: 20px;padding: 10px">总价：<span
                             style="color: red;font-size: 20px;font-weight: bold">¥ <span
                             id="allCost">0.0</span></span>
@@ -118,17 +118,34 @@
      */
     function getSumCost() {
         let allCost = 0.0;
+        var allCount=0;
         $("[id^=check-]").each(function () {
             if (this.checked) {// 如果当前选中
-                let shopCarId = this.id.split('-')[1];
-                let count = $("#count-" + shopCarId).val();
-                let price = parseFloat($("#price-" + shopCarId).text());
+                let shopCardId = this.id.split('-')[1];
+                let count = $("#count-" + shopCardId).val();
+                let price = parseFloat($("#price-" + shopCardId).text());
                 allCost += count * price;
             }
         });
         $("#allCost").text(allCost.toFixed(1));
         return allCost.toFixed(1);
     }
+    function getAllCount(){
+        let allCount=0;
+        $("[id^=check-]").each(function () {
+            if (this.checked) {// 如果当前选中
+                let shopCardId = this.id.split('-')[1];
+                let count = $("#count-" + shopCardId).val();
+                //let price = parseFloat($("#price-" + shopCardId).text());
+                //allCost += count * price;
+                allCount=allCount+count;
+
+            }
+        });
+        $("#allCount").text(allCount.toFixed(1));
+        return allCount.toFixed(1);
+    }
+
 
     $(function () {
         layui.use(['table', 'form', 'layer'], function () {
@@ -147,6 +164,7 @@
                 }
                 ;
                 getSumCost();
+                getAllCount();
 
             });
             $("[id^=cut-]").click(function () {
@@ -162,6 +180,7 @@
                     $("#check-" + id)[0].checked = false;
                 }
                 getSumCost();
+                getAllCount();
             });
             $("#checkAll").click(function () {
                 let checked = this.checked;
@@ -194,7 +213,7 @@
                         // 就是去把商品取到
                         for (let x = 0; x < cars.length; x++) {
                             let ca = cars[x];
-                            if (id == ca.shopCarId) {
+                            if (id == ca.shopCardId) {
                                 // car.goods = ca.goods;
                                 car = ca;
                                 car.count = count;

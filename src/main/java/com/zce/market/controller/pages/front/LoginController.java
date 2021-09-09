@@ -23,11 +23,8 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Resource
     UserService userService;
-
     @Resource
     ShopCarService shopCarService;
-
-
     @RequestMapping("loginPage")
     String loginPage() {
         return "pages/front/login/loginPage";
@@ -49,6 +46,8 @@ public class LoginController {
 
         if (loginResult) {// 登录成功，返回到后台首页
             User dbUser = userService.getUserByPhone(user.getPhone());
+//            model.addAttribute("UserName",dbUser.getRealName());
+            session.setAttribute("userName",dbUser.getRealName());
             session.setAttribute("userId", dbUser.getUserId());
             session.setAttribute("carCount", shopCarService.getCarCountByUserId(dbUser.getUserId()));
             return "pages/back/backHome";

@@ -65,16 +65,15 @@
 
         </div>
     </div>
-    <div onclick="window.location='/pages/back/shopCar/showMyCar'" style="cursor: pointer;width: 15%;
-    text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;color:red;
-    margin-left: 40px ">
-        我的购物车(<span th:text="${session.carCount}">10</span>)
+    <div th:action="@{/pages/front/login}" method="post" onclick="window.location='/pages/back/shopCar/showMyCar'" style="cursor: pointer;width: 15%;text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;color:red;
+    margin-left: 40px " >(<span th:text="${session.userName}">我的</span>)的购物车(<span th:text="${session.carCount}">10</span>)
     </div>
 
     <!--下面的location对应前面的LoginController方法-->
     <div onclick="window.location='/pages/front/loginPage'"  id="loginBtn" style="cursor: pointer;width: 80px;text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;margin-left: 40px ">
         登录
     </div>
+    <img src="">
 
     <!--下面是跳转到控制器的register-->
     <div onclick="window.location='/pages/front/registPage'"  id="registBtn" style="cursor: pointer;width: 80px;text-align: center;border:solid lightgray 1px;background:rgb(245,245,245);padding: 6px;margin-left: 40px ">

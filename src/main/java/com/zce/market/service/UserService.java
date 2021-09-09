@@ -29,4 +29,6 @@ public interface UserService {
     Map<String, Object> register(User user);
 
     String adduser(User user);
+
+    String getUserName(String name);
 }

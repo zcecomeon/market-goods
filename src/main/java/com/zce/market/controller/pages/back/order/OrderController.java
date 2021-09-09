@@ -11,6 +11,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/pages/back/order")
 public class OrderController {
-
-
 }

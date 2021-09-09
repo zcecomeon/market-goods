@@ -1,12 +1,9 @@
 package com.zce.market.consts;
-
 /**
  * @Author 时光荒凉了来时路
  * @Date 2021/9/4 22:49
  */
 public class GoodsConsts {
-
-
     /**
      * 可以表示是否是SVIP,权限是否展示
      */
@@ -15,8 +12,6 @@ public class GoodsConsts {
      * 可以表示是否是SVIP,权限是否展示
      */
     public static final Double AREA_RANGE = 5.0;
-
-
     /**
      * 可以表示是否是SVIP,权限是否展示
      */
@@ -25,15 +20,10 @@ public class GoodsConsts {
      * 可以表示是否是SVIP,权限是否展示
      */
     public static final String NO = "NO";
-
-
     public static final String WINDOW_UPLOAD_PATH = "C:\\";
     public static final String LINUX_UPLOAD_PATH = "/";
-
     public static final String WINDOW_CONFIG_UPLOAD_PATH = "file:C:\\upload\\";
     public static final String LINUX_CONFIG_UPLOAD_PATH = "file:/upload/";
-
-
     /**
      * 获取上传文件路径配置的方法
      *
@@ -46,9 +36,7 @@ public class GoodsConsts {
             realPath = GoodsConsts.WINDOW_CONFIG_UPLOAD_PATH;
         }
         return realPath;
-
     }
-
     /**
      * 获取上传文件路径的方法
      *

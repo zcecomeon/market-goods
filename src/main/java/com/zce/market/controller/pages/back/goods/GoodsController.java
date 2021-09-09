@@ -48,7 +48,6 @@ public class GoodsController extends BaseController {
         goods.setImg(imgUrl);
         return goodsService.add(goods);
     }
-
     /**
      * 真正添加商品的方法
      *
@@ -59,5 +58,4 @@ public class GoodsController extends BaseController {
     ResponseDTO getGoodsByTypeId(@PathVariable Integer typeId) {
         return goodsService.getGoodsByTypeId(typeId);
     }
-
 }

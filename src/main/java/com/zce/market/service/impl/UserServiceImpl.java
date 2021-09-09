@@ -63,4 +63,9 @@ public class UserServiceImpl implements UserService {
 
         return null;
     }
+
+    @Override
+    public String getUserName(String name) {
+        return null;
+    }
 }

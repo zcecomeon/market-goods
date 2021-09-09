@@ -26,4 +26,7 @@ public interface UserDao {
      * @return
      */
     User selectByPhone(String phone) ;
+
+    User getNameByPhone(String name);
+
 }
