@@ -74,7 +74,6 @@
         </div>
     </div>
 </div>
-
 <div style="position: fixed;bottom: 0;;left:0;right:0;height: 60px;box-shadow: 0 0  10px lightgray;">
     <div class="layui-row">
         <div class="layui-col-md8 layui-col-md-offset4">
@@ -90,9 +89,9 @@
                 </div>
                 <div style="display: flex">
 
-                    <!--<div style="margin-right: 20px;color: gray;padding: 10px">已选<span-->
-                            <!--style="color: red;font-weight: bold;margin:5px;">0</span>商品-->
-                    <!--</div>-->
+                    <div style="margin-right: 20px;color: gray;padding: 10px">已选<span
+                            style="color: red;font-weight: bold;margin:5px;"id="allCount">0</span>商品
+                    </div>
 
                     <div style="color: gray;margin-right: 20px;padding: 10px">总价：<span
                             style="color: red;font-size: 20px;font-weight: bold">¥ <span
@@ -110,15 +109,13 @@
         </div>
     </div>
 </div>
-
-
 <script th:inline="javascript" type="text/javascript">
     /**
      * 计算商品总价
      */
     function getSumCost() {
         let allCost = 0.0;
-        var allCount=0;
+        var allCount=parseInt("0");
         $("[id^=check-]").each(function () {
             if (this.checked) {// 如果当前选中
                 let shopCardId = this.id.split('-')[1];
@@ -136,14 +133,11 @@
             if (this.checked) {// 如果当前选中
                 let shopCardId = this.id.split('-')[1];
                 let count = $("#count-" + shopCardId).val();
-                //let price = parseFloat($("#price-" + shopCardId).text());
-                //allCost += count * price;
-                allCount=allCount+count;
-
+                allCount=parseInt(count)+parseInt(allCount);
             }
         });
-        $("#allCount").text(allCount.toFixed(1));
-        return allCount.toFixed(1);
+        $("#allCount").text(allCount.toFixed(0));
+        return allCount.toFixed(0);
     }
 
 
@@ -191,6 +185,7 @@
             });
             $("[id^=check-]").click(function () {
                 getSumCost();
+                getAllCount();
             });
             $("[id^=count-]").change(function () {
                 let id = this.id.split('-')[1];
@@ -200,7 +195,7 @@
                 } else {
                     $("#check-" + id)[0].checked = false;
                 }
-                getSumCost();
+                getSumCost(); getAllCount();
             });
             $("#goStatement").click(function () {
                 let arr = [];
