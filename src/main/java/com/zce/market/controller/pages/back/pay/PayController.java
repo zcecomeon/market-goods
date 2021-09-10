@@ -165,7 +165,7 @@
 //    @ResponseBody
 //    @RequestMapping("wxBXiadan")
 //    Map<String, String> wxBXiadan(UserOrder order, HttpServletRequest request) {
-//        String subject = "华夏超市付款";
+//        String subject = "仿京东超市付款";
 //        Double allCost = order.getAllCost();
 ////        try {
 //        WXPay wxpay = new WXPay(WxConfig.wxConfig);

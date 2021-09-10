@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ti</title>
+    <title>商品添加页</title>
 </head>
 <style>
     #previewImg:hover{
@@ -18,7 +18,7 @@
 <div style="display: flex">
     <div>
         <div style="">
-            <form class="layui-form" id="goodForm" action="">
+            <form class="layui-form" id="goodForm" >
                 <div class="layui-form-item">
                     <label class="layui-form-label">根类型</label>
                     <div class="layui-input-block" style="width: 300px;">
@@ -170,10 +170,9 @@
                 console.log(text);
                 $("#detail").val(text);
                 $("#goodForm").submit();
-                window.history.go(-1);
-
+                //alert("添加成功");
+                window.history.back();
             });
-
             form.on('select(parentTypes)', function (data) {
                 let pid = data.value;
                 let types = [[${types}]];
@@ -200,12 +199,6 @@
             });
 
             form.on('submit(goodForm)', function (data) {
-                // alert("你好");
-                // console.log(data.elem);
-                // console.log(data.form);
-                // console.log(data.field);
-                // return false;
-
                 let text = editor.txt.html();
                 $("#detail").val(text);
                 let formData = new FormData(data.form);

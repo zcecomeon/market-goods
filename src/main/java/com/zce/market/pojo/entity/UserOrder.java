@@ -165,4 +165,8 @@ public class UserOrder implements Serializable {
     public void setTotalDeduction(Double totalDeduction) {
         this.totalDeduction = totalDeduction;
     }
+
+    public void setUserId(Integer userId) {
+        this.usrerId=userId;
+    }
 }

@@ -4,7 +4,6 @@
 <div th:replace="plugins/js::js"></div>
 <script type="text/javascript" th:src="@{/lh/layer/layer.js}"></script>
 <body>
-
 <!--#fd0c2c到#fd2a47-->
 <div class="layui-row" style="position: absolute;left: 0;top: 0;bottom: 0;right: 0">
     <div class="layui-col-xs12 layui-col-md6 layui-col-md-offset3 "
@@ -35,12 +34,12 @@
                              id="selectAddress">
                             <div th:if="${morenAddress!=null}">
                                 <div style="display: flex;align-items: center">
-                                    <span style="background: #50d15a;color: white;padding: 1px 2px;border-radius:2px">公司</span>
+                                    <span style="background: #50d15a;color: white;padding: 1px 2px;border-radius:2px">学校</span>
                                     <h2 style="font-weight: bold" id="addressTxt"
-                                        th:text="${morenAddress.detailAddress}">大西洋国际大厦12-1</h2>
+                                        th:text="${morenAddress.detailAddress}">地址</h2>
                                 </div>
                                 <div style="color: gray">
-                                    <span id="receiverTxt" th:text="${morenAddress.receiver}">黎杭</span>
+                                    <span id="receiverTxt" th:text="${morenAddress.receiver}">姓名</span>
                                     <span style="margin-left: 5px" id="receiverPhoneTxt"
                                           th:text="${#strings.substring(morenAddress.phone,0,3)}+'****'+${#strings.substring(morenAddress.phone,7)}">182****0162</span>
                                 </div>
@@ -70,7 +69,7 @@
                                          onerror="this.src=errorImg"/>
                                 </div>
                                 <div style="margin-left: 10px;flex-grow: 1">
-                                    <div th:text="${c.goods.title}">福临门水晶米</div>
+                                    <div th:text="${c.goods.title}">商品标题</div>
                                     <div style="display: flex;justify-content: space-between;padding: 10px 0;font-weight: bold">
                                         <div>¥<span th:text="${c.goods.price}">29.8</span> x <span th:text="${c.count}">1</span>
                                         </div>
@@ -198,10 +197,7 @@
                 } else {
                     $("#isWx").val(false)
                 }
-
                 // 提及哦订单之前，应该把订单详情也设置过来
-
-
                 $("#orderForm1").submit();
 
             })

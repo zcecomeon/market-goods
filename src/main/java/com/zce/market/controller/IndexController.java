@@ -21,10 +21,8 @@ public class IndexController {
     //@ResponseBody //表示返回字符串给前端
     @Resource
     UserDao userDao;
-
     @Resource
     TypeService typeService;
-
     @Resource
     UserService userService;
 

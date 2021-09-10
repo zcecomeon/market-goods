@@ -48,6 +48,11 @@ public class GoodsController extends BaseController {
         goods.setImg(imgUrl);
         return goodsService.add(goods);
     }
+    @RequestMapping("test")
+    @ResponseBody
+    String test(){
+        return "pages/front/login/testpage.html";
+    }
     /**
      * 真正添加商品的方法
      *
